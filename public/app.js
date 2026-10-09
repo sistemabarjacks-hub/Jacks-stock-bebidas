@@ -1,3 +1,7 @@
+// Keep repeated quantity taps and multitouch gestures from zooming the stock screen.
+for(const type of ['gesturestart','gesturechange','gestureend'])document.addEventListener(type,event=>event.preventDefault(),{passive:false});
+document.addEventListener('touchmove',event=>{if(event.touches.length>1)event.preventDefault()},{passive:false});
+document.addEventListener('dblclick',event=>event.preventDefault(),{passive:false});
 const root=document.querySelector('#app'),feedback=document.querySelector('#feedback');
 const S={user:null,data:null,view:'home',close:null,index:0,editing:false,date:'',tab:'bars',busy:false,error:'',userEdit:null,productEdit:null,audit:[],totals:null,totalsDate:''};
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
