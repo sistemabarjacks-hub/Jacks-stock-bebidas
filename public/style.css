@@ -2,5 +2,15 @@
 
 .product-heading{flex-wrap:wrap;gap:16px}.product-actions{display:flex;gap:8px;flex-shrink:0}.delete-button{color:#a13631;background:#fff0ee;border-color:#ebc9c5}.category-section summary{cursor:pointer;font-weight:600;min-height:44px}.product-row strong{min-width:0}#product-category{margin-bottom:20px}@media(max-width:480px){.product-heading>.primary{width:100%}.product-row{flex-wrap:wrap}.product-row>strong{flex-basis:100%}.product-actions{width:100%}.product-actions button{flex:1}}
 
-/* Keep all administration sections accessible on narrow screens. */
-.tabs{overflow-x:auto}.tabs .tab{flex-shrink:0}
+/* Keep the stock screen fixed horizontally and allow vertical scrolling only. */
+html,body{width:100%;max-width:100%;overflow-x:hidden;overscroll-behavior-x:none;touch-action:pan-y}
+button,a,input,select,textarea{touch-action:pan-y}
+input,select,textarea{font-size:16px}
+#app,.shell,.topbar-inner{min-width:0;max-width:100%}
+.tabs{flex-wrap:wrap;overflow-x:hidden}.tabs .tab{flex:0 1 auto}
+.section-heading,.form-actions,.dialog-actions{flex-wrap:wrap}
+.section-heading>div,.review-row>div,.header-actions,.brand{min-width:0}
+.review-row>div{flex:1;overflow-wrap:anywhere}
+.topbar-inner{gap:10px}.wordmark{overflow-wrap:anywhere}
+@media(max-width:760px){.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.tabs .tab{padding:12px 4px;min-width:0}.date-control input,.date-control select{min-width:0;flex:1}.count-top{flex-wrap:wrap}}
+
