@@ -1,0 +1,13 @@
+PRAGMA foreign_keys = ON;
+CREATE TABLE users (id TEXT PRIMARY KEY, username TEXT NOT NULL UNIQUE COLLATE NOCASE, name TEXT NOT NULL, password_hash TEXT NOT NULL, role TEXT NOT NULL CHECK(role IN ('admin','bar')), bar INTEGER CHECK(bar BETWEEN 1 AND 6), active INTEGER NOT NULL DEFAULT 1 CHECK(active IN (0,1)), CHECK(role='admin' OR bar IS NOT NULL));
+CREATE TABLE bars (id INTEGER PRIMARY KEY CHECK(id BETWEEN 1 AND 6), name TEXT NOT NULL);
+CREATE TABLE products (id TEXT PRIMARY KEY, name TEXT NOT NULL, category TEXT NOT NULL, position INTEGER NOT NULL, active INTEGER NOT NULL DEFAULT 1);
+CREATE TABLE shifts (date TEXT PRIMARY KEY, status TEXT NOT NULL CHECK(status IN ('open','closed')), created_by TEXT NOT NULL);
+CREATE TABLE closes (id TEXT PRIMARY KEY, date TEXT NOT NULL REFERENCES shifts(date), bar INTEGER NOT NULL REFERENCES bars(id), status TEXT NOT NULL CHECK(status IN ('draft','submitted')), snapshot TEXT NOT NULL, notes TEXT NOT NULL DEFAULT '', actor TEXT NOT NULL REFERENCES users(id), submitted_at TEXT, UNIQUE(date,bar));
+CREATE TABLE entries (close_id TEXT NOT NULL REFERENCES closes(id), product TEXT NOT NULL, quantity REAL NOT NULL CHECK(quantity>=0 AND quantity<=1000000), updated_by TEXT NOT NULL REFERENCES users(id), updated_at TEXT NOT NULL, PRIMARY KEY(close_id,product));
+CREATE TABLE sessions (hash TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id), expires INTEGER NOT NULL);
+CREATE INDEX sessions_user ON sessions(user_id);
+CREATE TABLE attempts (key TEXT PRIMARY KEY, count INTEGER NOT NULL, expires INTEGER NOT NULL);
+CREATE TABLE audit (id TEXT PRIMARY KEY, actor TEXT NOT NULL, action TEXT NOT NULL, record TEXT NOT NULL, at TEXT NOT NULL);
+CREATE INDEX closes_bar_date ON closes(bar,date);
+PRAGMA optimize;
