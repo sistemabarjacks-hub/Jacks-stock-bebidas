@@ -10,13 +10,13 @@ Em Produtos, o administrador pode adicionar produtos com nome e categoria, elimi
 
 Endereço informado: https://jacks-london-estoque.sistemabarjacks.workers.dev
 
-Este repositório recupera o projeto original e incorpora a atualização dos produtos. O envio ao GitHub, por si só, não publica o sistema no Cloudflare.
+Este repositório está vinculado ao Worker existente por Cloudflare Builds. Com as compilações ativadas, alterações na branch main iniciam a publicação com npx wrangler deploy.
 
-O arquivo wrangler.json recuperado do pacote original contém um marcador no database_id. Antes de publicar, deve ser substituído pela configuração do Worker existente, mantendo o mesmo banco D1 e seus segredos.
+O arquivo wrangler.json utiliza o banco D1 existente jacks-london-estoque (85d0aa5e-9c60-4b83-89e6-a0a792e50df8), com o binding DB. Mantenha esse banco e os segredos do Worker.
 
 Não execute npm run setup novamente, não crie outro banco e não recrie AUTH_PEPPER. A alteração desse segredo invalida a verificação das senhas existentes.
 
-Depois de recuperar a configuração existente e autorizar o Cloudflare, instale as dependências e publique com npx wrangler deploy. A atualização não requer migração do banco.
+No Cloudflare Builds, deixe o comando de build vazio e use npx wrangler deploy como comando de publicação. A atualização dos produtos não requer migração do banco. Verifique o resultado em Deployments antes de considerar a atualização publicada.
 
 ## Verificação
 
