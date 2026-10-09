@@ -11,7 +11,7 @@
     {
       "binding": "DB",
       "database_name": "jacks-london-estoque",
-      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "database_id": "85d0aa5e-9c60-4b83-89e6-a0a792e50df8",
       "migrations_dir": "migrations"
     }
   ],
